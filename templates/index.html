@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vibe Resizer</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&display=swap" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+  </head>
+  <body>
+    <div class="page">
+      <header class="hero">
+        <div class="hero__glow"></div>
+        <h1>Vibe Resizer</h1>
+        <p>Drop your 9:16 videos and instantly get square and widescreen cuts.</p>
+        <p class="hero__meta">Every resize is on the house — no fees, no tokens.</p>
+      </header>
+
+      <main class="card">
+        <form id="upload-form">
+          <label class="uploader" for="videos">
+            <input id="videos" name="videos" type="file" accept="video/*" multiple hidden />
+            <div class="uploader__icon">⬆</div>
+            <div class="uploader__text">
+              <strong>Drop files here</strong>
+              <span>or click to choose up to 10 clips</span>
+            </div>
+          </label>
+
+          <fieldset class="mode">
+            <legend>Resizing style</legend>
+            <label>
+              <input type="radio" name="mode" value="blur" checked />
+              <span>Blurred background</span>
+            </label>
+            <label>
+              <input type="radio" name="mode" value="scale" />
+              <span>Fill &amp; crop</span>
+            </label>
+          </fieldset>
+
+          <button type="submit" class="submit">Make the magic ✨</button>
+        </form>
+
+        <section id="status" class="status" hidden>
+          <div class="status__spinner"></div>
+          <div class="status__text">
+            <h2>Working on it…</h2>
+            <p class="status__detail">This can take a bit, especially for longer clips.</p>
+          </div>
+        </section>
+
+        <section id="result" class="result" hidden>
+          <h2>All done!</h2>
+          <p id="result-count"></p>
+          <a id="download-link" class="download" href="#" download>Download resized pack</a>
+        </section>
+
+        <section class="specs">
+          <h2>Output presets</h2>
+          <p class="specs__note">Pricing: <strong>$0 per export</strong>. Process as many clips as you like.</p>
+          <ul>
+            {% for key, spec in specs.items() %}
+            <li>
+              <span>{{ spec.label }}</span>
+              <span>{{ spec.width }} × {{ spec.height }}</span>
+            </li>
+            {% endfor %}
+          </ul>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <p>Built with vibes, MoviePy and 🖤.</p>
+      </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}" defer></script>
+  </body>
+</html>
